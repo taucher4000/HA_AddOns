@@ -1,0 +1,40 @@
+name: "Inetbox (Beta)"
+description: "Truma iNet box for controlling the Truma Combi heater & Air Conditioning"
+version: "0.0.8"
+slug: "inet_box_beta"
+init: false
+uart: true
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+
+options:
+  MQTTBroker: "core-mosquitto"
+  MQTTUser: ""
+  MQTTPassword: ""
+  SerialDevice: "/dev/serial0"
+  DefaultTargetTempRoom: 22
+  DebugApp: false
+  DebugLin: false
+  DebugProtocol: false
+  SetTime: true
+  Timezone: "Europe/Berlin"
+  Language: de
+  Optimistic: false
+
+schema:
+  MQTTBroker: str
+  MQTTUser: str?
+  MQTTPassword: password?
+  SerialDevice: str
+  DefaultTargetTempRoom: int
+  DebugApp: bool
+  DebugLin: bool
+  DebugProtocol: bool
+  SetTime: bool
+  Timezone: str
+  Language: list(de|en)
+  Optimistic: bool
