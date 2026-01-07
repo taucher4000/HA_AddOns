@@ -48,4 +48,4 @@ jobs:
 
       - name: Push subtree updates
         run: |
-          git -c http.extraheader="Authorization: Bearer ${{ secrets.HA_ADDONS_SUBTREE_UPDATE }}" push origin main
+          git push https://x-access-token:${{ secrets.HA_ADDONS_SUBTREE_UPDATE }}@github.com/taucher4000/HA_AddOns.git main
