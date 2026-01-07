@@ -44,10 +44,6 @@ jobs:
             main \
             --squash || true
 
-      - name: Push changes (if any)
+      - name: Push subtree updates
         run: |
-          if git status --porcelain | grep .; then
-            git push
-          else
-            echo "No subtree updates available"
-          fi
+          git push || echo "Nothing to push"
