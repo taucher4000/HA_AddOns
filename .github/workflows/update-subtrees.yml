@@ -46,6 +46,11 @@ jobs:
             main \
             --squash
 
-      - name: Push subtree updates
+      - name: Push subtree updates if there are changes
         run: |
-          git push https://x-access-token:${{ secrets.HA_ADDONS_SUBTREE_UPDATE }}@github.com/taucher4000/HA_AddOns.git main
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Subtree changes detected, pushing..."
+            git push https://x-access-token:${{ secrets.HA_ADDONS_SUBTREE_UPDATE }}@github.com/taucher4000/HA_AddOns.git main
+          else
+            echo "No subtree changes, nothing to push."
+          fi
