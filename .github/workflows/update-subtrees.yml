@@ -1,0 +1,53 @@
+name: Update HA subtrees (cron)
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"   # alle 30 Minuten
+  workflow_dispatch:
+
+jobs:
+  update-subtrees:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "subtree-bot"
+          git config user.email "subtree-bot@users.noreply.github.com"
+
+      - name: Update HA_InetBox (main)
+        run: |
+          git subtree pull \
+            --prefix=ha_inetbox \
+            https://github.com/taucher4000/HA_InetBox.git \
+            main \
+            --squash || true
+
+      - name: Update HA_InetBox (testing)
+        run: |
+          git subtree pull \
+            --prefix=ha_inetbox_beta \
+            https://github.com/taucher4000/HA_InetBox.git \
+            testing \
+            --squash || true
+
+      - name: Update HA_CANBus (main)
+        run: |
+          git subtree pull \
+            --prefix=ha_canbus \
+            https://github.com/taucher4000/HA_CANBus.git \
+            main \
+            --squash || true
+
+      - name: Push changes (if any)
+        run: |
+          if git status --porcelain | grep .; then
+            git push
+          else
+            echo "No subtree updates available"
+          fi
