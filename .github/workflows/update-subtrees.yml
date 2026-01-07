@@ -2,7 +2,7 @@ name: Update HA subtrees (cron)
 
 on:
   schedule:
-    - cron: "*/30 * * * *"   # alle 30 Minuten
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
             --prefix=ha_inetbox \
             https://github.com/taucher4000/HA_InetBox.git \
             main \
-            --squash || true
+            --squash
 
       - name: Update HA_InetBox (testing)
         run: |
@@ -34,7 +34,7 @@ jobs:
             --prefix=ha_inetbox_beta \
             https://github.com/taucher4000/HA_InetBox.git \
             testing \
-            --squash || true
+            --squash
 
       - name: Update HA_CANBus (main)
         run: |
@@ -42,9 +42,9 @@ jobs:
             --prefix=ha_canbus \
             https://github.com/taucher4000/HA_CANBus.git \
             main \
-            --squash || true
+            --squash
 
       - name: Push subtree updates
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.HA_ADDONS_SUBTREE_UPDATE }}@github.com/taucher4000/HA_AddOns.git
-          git push || echo "Nothing to push"
+          git push origin main
