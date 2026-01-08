@@ -22,6 +22,11 @@ jobs:
           git config user.name "subtree-bot"
           git config user.email "subtree-bot@users.noreply.github.com"
 
+      - name: Save current HEAD
+        run: |
+          echo "OLD_HEAD=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+
       - name: Update HA_InetBox (main)
         run: |
           git subtree pull \
@@ -49,10 +54,11 @@ jobs:
             --squash \
             -m "Automated subtree update"
 
+
       - name: Push subtree updates if there are changes
         run: |
-          LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
-          if [[ "$LAST_COMMIT_MSG" == *"Automated subtree update"* ]]; then
+          NEW_HEAD=$(git rev-parse HEAD)
+          if [ "$OLD_HEAD" != "$NEW_HEAD" ]; then
             echo "Subtree changes detected, pushing..."
             git push https://x-access-token:${{ secrets.HA_ADDONS_SUBTREE_UPDATE }}@github.com/taucher4000/HA_AddOns.git main
           else
