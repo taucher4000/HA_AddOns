@@ -34,7 +34,7 @@ Es dient zur CAN-Bus-Integration in Home Assistant und basiert auf dem Paket [**
 
 **English: 🇬🇧**  
 This add-on is currently in development.  
-It aims to provide CAN bus integration for Home Assistant and is based on the [**miqro_can**](https://github.com/danielfett/miqro_can)package.  
+It aims to provide CAN bus integration for Home Assistant and is based on the [**miqro_can**](https://github.com/danielfett/miqro_can) package.  
 
 ---
 
