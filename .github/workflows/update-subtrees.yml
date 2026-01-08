@@ -28,7 +28,8 @@ jobs:
             --prefix=ha_inetbox \
             https://github.com/taucher4000/HA_InetBox.git \
             main \
-            --squash
+            --squash \
+            -m "Automated subtree update"
 
       - name: Update HA_InetBox (testing)
         run: |
@@ -36,7 +37,8 @@ jobs:
             --prefix=ha_inetbox_beta \
             https://github.com/taucher4000/HA_InetBox.git \
             testing \
-            --squash
+            --squash \
+            -m "Automated subtree update"
 
       - name: Update HA_CANBus (main)
         run: |
@@ -44,11 +46,13 @@ jobs:
             --prefix=ha_canbus \
             https://github.com/taucher4000/HA_CANBus.git \
             main \
-            --squash
+            --squash \
+            -m "Automated subtree update"
 
       - name: Push subtree updates if there are changes
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
+          LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
+          if [[ "$LAST_COMMIT_MSG" == *"Automated subtree update"* ]]; then
             echo "Subtree changes detected, pushing..."
             git push https://x-access-token:${{ secrets.HA_ADDONS_SUBTREE_UPDATE }}@github.com/taucher4000/HA_AddOns.git main
           else
