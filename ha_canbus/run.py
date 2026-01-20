@@ -1,11 +1,13 @@
-#!/inetbox/bin/python3
+#!/canbus/bin/python3
 # -*- coding: utf-8 -*-
 import json
 import yaml
 import sys
 from pathlib import Path
-from inetbox import truma_service
+from miqro_can.canbus import CANService
+import miqro
 import random
+from time import sleep
 
 
 CONFIG_FILE = Path("/etc/miqro.yml")
@@ -23,10 +25,7 @@ MIQRO_CONFIG = {
     },
     "log_level": "INFO",
     "services": {
-        "truma": {
-            "serial_device": "/dev/serial0",
-            "default_target_temp_room": 22,
-        }
+        "can": {}
     }
 }
 
@@ -49,17 +48,13 @@ ha_options = load_json(OPTIONS_FILE)
 MIQRO_CONFIG["broker"]["host"] = ha_options["MQTTBroker"]
 MIQRO_CONFIG["auth"]["username"] = ha_options["MQTTUser"]
 MIQRO_CONFIG["auth"]["password"] = ha_options["MQTTPassword"]
-MIQRO_CONFIG["services"]["truma"]["default_target_temp_room"] = ha_options["DefaultTargetTempRoom"]
-MIQRO_CONFIG["services"]["truma"]["serial_device"] = ha_options["SerialDevice"]
-MIQRO_CONFIG["services"]["truma"]["debug_app"] = ha_options["DebugApp"]
-MIQRO_CONFIG["services"]["truma"]["debug_lin"] = ha_options["DebugLin"]
-MIQRO_CONFIG["services"]["truma"]["debug_protocol"] = ha_options["DebugProtocol"]
-MIQRO_CONFIG["services"]["truma"]["set_time"] = ha_options["SetTime"]
-MIQRO_CONFIG["services"]["truma"]["timezone_override"] = ha_options["Timezone"]
-MIQRO_CONFIG["services"]["truma"]["language"] = ha_options["Language"]
-MIQRO_CONFIG["services"]["truma"]["ha_optimistic"] = ha_options["Optimistic"]
+MIQRO_CONFIG["log_level"] = "DEBUG" if ha_options["Debug"] else "INFO"
 
 save_yaml(MIQRO_CONFIG, CONFIG_FILE)
 
 if __name__ == '__main__':
-    sys.exit(truma_service.run())
+    while True:
+        print("This loop will run forever!")
+        sleep(10)
+
+#    sys.exit(miqro.run(CANService))
