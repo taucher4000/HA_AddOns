@@ -26,18 +26,6 @@ With this add-on, you can control your Truma heating system directly from Home A
 
 ---
 
-### ➡️ [HA_CANBus](https://github.com/taucher4000/HA_CANBus) CAN-Bus-Integration for CamperVan and Motorhomes
-
-**Deutsch: 🇩🇪**  
-Dieses Add-on befindet sich aktuell in der Entwicklung.  
-Es dient zur CAN-Bus-Integration in Home Assistant und basiert auf dem Paket [**miqro_can**](https://github.com/danielfett/miqro_can).  
-
-**English: 🇬🇧**  
-This add-on is currently in development.  
-It aims to provide CAN bus integration for Home Assistant and is based on the [**miqro_can**](https://github.com/danielfett/miqro_can) package.  
-
----
-
 ## ⚠️ Hinweis / Disclaimer
 
 **Deutsch: 🇩🇪**  
